@@ -6,6 +6,7 @@ import { ServicesSection } from "@/components/sections/services-section"
 import { AboutSection } from "@/components/sections/about-section"
 import { ContactSection } from "@/components/sections/contact-section"
 import { MagneticButton } from "@/components/magnetic-button"
+import Icon from "@/components/ui/icon"
 import { useRef, useEffect, useState } from "react"
 
 export default function Index() {
@@ -182,9 +183,9 @@ export default function Index() {
       >
         <Shader className="h-full w-full">
           <Swirl
-            colorA="#1275d8"
-            colorB="#e19136"
-            speed={0.8}
+            colorA="#1a5276"
+            colorB="#c0392b"
+            speed={0.5}
             detail={0.8}
             blend={50}
             coarseX={40}
@@ -195,19 +196,19 @@ export default function Index() {
             fineY={40}
           />
           <ChromaFlow
-            baseColor="#0066ff"
-            upColor="#0066ff"
-            downColor="#d1d1d1"
-            leftColor="#e19136"
-            rightColor="#e19136"
-            intensity={0.9}
+            baseColor="#1a5276"
+            upColor="#2471a3"
+            downColor="#aab7b8"
+            leftColor="#c0392b"
+            rightColor="#d4ac0d"
+            intensity={0.8}
             radius={1.8}
-            momentum={25}
+            momentum={20}
             maskType="alpha"
-            opacity={0.97}
+            opacity={0.95}
           />
         </Shader>
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-black/30" />
       </div>
 
       <nav
@@ -220,13 +221,13 @@ export default function Index() {
           className="flex items-center gap-2 transition-transform hover:scale-105"
         >
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-foreground/15 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-foreground/25">
-            <span className="font-sans text-xl font-bold text-foreground">F</span>
+            <Icon name="Gauge" size={20} className="text-foreground" />
           </div>
-          <span className="font-sans text-xl font-semibold tracking-tight text-foreground">Flowrise</span>
+          <span className="font-sans text-xl font-semibold tracking-tight text-foreground">АМК</span>
         </button>
 
         <div className="hidden items-center gap-8 md:flex">
-          {["Главная", "Работы", "Услуги", "О нас", "Контакты"].map((item, index) => (
+          {["Главная", "Каталог", "Услуги", "О компании", "Контакты"].map((item, index) => (
             <button
               key={item}
               onClick={() => scrollToSection(index)}
@@ -245,53 +246,64 @@ export default function Index() {
         </div>
 
         <MagneticButton variant="secondary" onClick={() => scrollToSection(4)}>
-          Начать
+          Запрос
         </MagneticButton>
       </nav>
 
       <div
         ref={scrollContainerRef}
         data-scroll-container
-        className={`relative z-10 flex h-screen overflow-x-auto overflow-y-hidden transition-opacity duration-700 ${
-          isLoaded ? "opacity-100" : "opacity-0"
-        }`}
+        className="flex h-full snap-x snap-mandatory overflow-x-auto"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        {/* Hero Section */}
-        <section className="flex min-h-screen w-screen shrink-0 flex-col justify-end px-6 pb-16 pt-24 md:px-12 md:pb-24">
-          <div className="max-w-3xl">
-            <div className="mb-4 inline-block animate-in fade-in slide-in-from-bottom-4 rounded-full border border-foreground/20 bg-foreground/15 px-4 py-1.5 backdrop-blur-md duration-700">
-              <p className="font-mono text-xs text-foreground/90">Современные технологии</p>
-            </div>
-            <h1 className="mb-6 animate-in fade-in slide-in-from-bottom-8 font-sans text-6xl font-light leading-[1.1] tracking-tight text-foreground duration-1000 md:text-7xl lg:text-8xl">
-              <span className="text-balance">
-                Цифровое будущее
-              </span>
-            </h1>
-            <p className="mb-8 max-w-xl animate-in fade-in slide-in-from-bottom-4 text-lg leading-relaxed text-foreground/90 duration-1000 delay-200 md:text-xl">
-              <span className="text-pretty">
-                Создаем современные веб-приложения и цифровые продукты, которые помогают бизнесу расти и развиваться.
-              </span>
-            </p>
-            <div className="flex animate-in fade-in slide-in-from-bottom-4 flex-col gap-4 duration-1000 delay-300 sm:flex-row sm:items-center">
-              <MagneticButton
-                size="lg"
-                variant="primary"
-                onClick={() => scrollToSection(4)}
-              >
-                Обсудить проект
-              </MagneticButton>
-              <MagneticButton size="lg" variant="secondary" onClick={() => scrollToSection(2)}>
-                Наши услуги
-              </MagneticButton>
-            </div>
-          </div>
-
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-in fade-in duration-1000 delay-500">
-            <div className="flex items-center gap-2">
-              <p className="font-mono text-xs text-foreground/80">Листайте вправо</p>
-              <div className="flex h-6 w-12 items-center justify-center rounded-full border border-foreground/20 bg-foreground/15 backdrop-blur-md">
-                <div className="h-2 w-2 animate-pulse rounded-full bg-foreground/80" />
+        <section className="flex h-screen w-screen shrink-0 snap-start items-center px-6 md:px-12 lg:px-16">
+          <div
+            className={`mx-auto w-full max-w-7xl transition-all duration-1000 ${
+              isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+            }`}
+          >
+            <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-center md:gap-16">
+              <div>
+                <div className="mb-4 flex items-center gap-2">
+                  <div className="h-px w-12 bg-accent" />
+                  <span className="font-mono text-xs uppercase tracking-widest text-accent">
+                    Трубопроводная арматура
+                  </span>
+                </div>
+                <h1 className="mb-6 font-sans text-4xl font-light leading-[1.05] tracking-tight text-foreground md:text-6xl lg:text-7xl">
+                  Арматура
+                  <br />
+                  высокого
+                  <br />
+                  <span className="text-foreground/40">давления</span>
+                </h1>
+                <p className="mb-8 max-w-lg text-base leading-relaxed text-foreground/70 md:text-lg">
+                  Производство и поставка задвижек, клапанов запорных, предохранительных, регулирующих для энергетики, нефтегазовой и химической промышленности.
+                </p>
+                <div className="flex flex-wrap gap-3 md:gap-4">
+                  <MagneticButton size="lg" variant="primary" onClick={() => scrollToSection(1)}>
+                    Каталог продукции
+                  </MagneticButton>
+                  <MagneticButton size="lg" variant="secondary" onClick={() => scrollToSection(4)}>
+                    Отправить запрос
+                  </MagneticButton>
+                </div>
+              </div>
+              <div className="hidden md:block">
+                <div className="relative">
+                  <img
+                    src="https://cdn.poehali.dev/projects/2c1f257e-2978-4a2c-8975-d279835dab99/files/5ae1075c-1d01-40ae-af3c-67c34ba3f9e1.jpg"
+                    alt="Арматура высокого давления"
+                    className="aspect-square w-full rounded-2xl object-cover opacity-80"
+                  />
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <div className="flex items-center gap-3 rounded-xl bg-background/60 px-4 py-3 backdrop-blur-md">
+                      <Icon name="ShieldCheck" size={20} className="text-accent" />
+                      <span className="text-sm text-foreground/90">ГОСТ, ТУ, ISO 9001 — полная сертификация</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -302,12 +314,6 @@ export default function Index() {
         <AboutSection scrollToSection={scrollToSection} />
         <ContactSection />
       </div>
-
-      <style>{`
-        div::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
     </main>
   )
 }

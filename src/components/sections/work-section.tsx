@@ -1,4 +1,5 @@
 import { useReveal } from "@/hooks/use-reveal"
+import Icon from "@/components/ui/icon"
 
 export function WorkSection() {
   const { ref, isVisible } = useReveal(0.3)
@@ -10,41 +11,62 @@ export function WorkSection() {
     >
       <div className="mx-auto w-full max-w-7xl">
         <div
-          className={`mb-12 transition-all duration-700 md:mb-16 ${
+          className={`mb-8 transition-all duration-700 md:mb-12 ${
             isVisible ? "translate-x-0 opacity-100" : "-translate-x-12 opacity-0"
           }`}
         >
-          <h2 className="mb-2 font-sans text-5xl font-light tracking-tight text-foreground md:text-6xl lg:text-7xl">
-            Проекты
+          <h2 className="mb-2 font-sans text-4xl font-light tracking-tight text-foreground md:text-6xl lg:text-7xl">
+            Каталог
           </h2>
-          <p className="font-mono text-sm text-foreground/60 md:text-base">/ Избранные работы</p>
+          <p className="font-mono text-sm text-foreground/60 md:text-base">/ Основная продукция</p>
         </div>
 
-        <div className="space-y-6 md:space-y-8">
+        <div className="grid gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
           {[
             {
-              number: "01",
-              title: "ТехноСтарт",
-              category: "Корпоративный портал",
-              year: "2024",
+              icon: "CircleDot",
+              title: "Клапаны запорные",
+              models: "588, 589, 998, 999, 1с",
+              desc: "Для полного перекрытия потока рабочей среды на трубопроводах ТЭС и АЭС",
               direction: "left",
             },
             {
-              number: "02",
-              title: "АльфаТрейд",
-              category: "Финтех платформа",
-              year: "2024",
+              icon: "ShieldAlert",
+              title: "Клапаны предохранительные",
+              models: "988, Т-131МС, Т-132МС",
+              desc: "Защита оборудования от превышения давления рабочей среды",
+              direction: "top",
+            },
+            {
+              icon: "SlidersHorizontal",
+              title: "Клапаны регулирующие",
+              models: "1052, 1053, 1054, 1055",
+              desc: "Регулирование расхода и давления пара и воды",
               direction: "right",
             },
             {
-              number: "03",
-              title: "МедиаПульс",
-              category: "Медиа сервис",
-              year: "2023",
+              icon: "Layers",
+              title: "Задвижки",
+              models: "882, 883, 1010, 1011, 1012",
+              desc: "Запорная арматура для магистральных и технологических трубопроводов",
               direction: "left",
             },
-          ].map((project, i) => (
-            <ProjectCard key={i} project={project} index={i} isVisible={isVisible} />
+            {
+              icon: "Thermometer",
+              title: "РОУ / БРОУ",
+              models: "РОУ, БРОУ, ОУ",
+              desc: "Редукционно-охладительные установки для снижения давления и температуры пара",
+              direction: "bottom",
+            },
+            {
+              icon: "Disc",
+              title: "Дисковые клапаны LRV",
+              models: "LRV серия",
+              desc: "Современные дисковые клапаны для точного регулирования потока",
+              direction: "right",
+            },
+          ].map((product, i) => (
+            <ProductCard key={i} product={product} index={i} isVisible={isVisible} />
           ))}
         </div>
       </div>
@@ -52,43 +74,49 @@ export function WorkSection() {
   )
 }
 
-function ProjectCard({
-  project,
+function ProductCard({
+  product,
   index,
   isVisible,
 }: {
-  project: { number: string; title: string; category: string; year: string; direction: string }
+  product: { icon: string; title: string; models: string; desc: string; direction: string }
   index: number
   isVisible: boolean
 }) {
   const getRevealClass = () => {
     if (!isVisible) {
-      return project.direction === "left" ? "-translate-x-16 opacity-0" : "translate-x-16 opacity-0"
+      switch (product.direction) {
+        case "left":
+          return "-translate-x-12 opacity-0"
+        case "right":
+          return "translate-x-12 opacity-0"
+        case "top":
+          return "-translate-y-12 opacity-0"
+        case "bottom":
+          return "translate-y-12 opacity-0"
+        default:
+          return "translate-y-8 opacity-0"
+      }
     }
-    return "translate-x-0 opacity-100"
+    return "translate-x-0 translate-y-0 opacity-100"
   }
 
   return (
     <div
-      className={`group flex items-center justify-between border-b border-foreground/10 py-6 transition-all duration-700 hover:border-foreground/20 md:py-8 ${getRevealClass()}`}
-      style={{
-        transitionDelay: `${index * 150}ms`,
-        marginLeft: index % 2 === 0 ? "0" : "auto",
-        maxWidth: index % 2 === 0 ? "85%" : "90%",
-      }}
+      className={`group rounded-xl border border-foreground/10 bg-foreground/5 p-5 backdrop-blur-sm transition-all duration-700 hover:border-foreground/20 hover:bg-foreground/10 md:p-6 ${getRevealClass()}`}
+      style={{ transitionDelay: `${index * 100}ms` }}
     >
-      <div className="flex items-baseline gap-4 md:gap-8">
-        <span className="font-mono text-sm text-foreground/30 transition-colors group-hover:text-foreground/50 md:text-base">
-          {project.number}
-        </span>
-        <div>
-          <h3 className="mb-1 font-sans text-2xl font-light text-foreground transition-transform duration-300 group-hover:translate-x-2 md:text-3xl lg:text-4xl">
-            {project.title}
-          </h3>
-          <p className="font-mono text-xs text-foreground/50 md:text-sm">{project.category}</p>
+      <div className="mb-3 flex items-center gap-3">
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/15">
+          <Icon name={product.icon} size={18} className="text-accent" />
         </div>
+        <span className="font-mono text-xs text-foreground/40">0{index + 1}</span>
       </div>
-      <span className="font-mono text-xs text-foreground/30 md:text-sm">{project.year}</span>
+      <h3 className="mb-1 font-sans text-lg font-medium text-foreground transition-transform duration-300 group-hover:translate-x-1 md:text-xl">
+        {product.title}
+      </h3>
+      <p className="mb-2 font-mono text-xs text-accent/80">{product.models}</p>
+      <p className="text-sm leading-relaxed text-foreground/60">{product.desc}</p>
     </div>
   )
 }
